@@ -1,0 +1,31 @@
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+  setup:
+    desc: Install Python dependencies
+    cmds:
+      - uv sync
+
+  serve:
+    desc: Serve MCP at http://0.0.0.0:8000/mcp
+    cmds:
+      - uv run mcp-weather serve
+
+  test:
+    desc: Run tests
+    cmds:
+      - uv run pytest -q
+
+  lint:
+    desc: Check lint and formatting
+    cmds:
+      - uv run ruff check .
+      - uv run ruff format --check .
+
+  check:
+    desc: Run tests, lint, and formatting checks
+    cmds:
+      - task: test
+      - task: lint
